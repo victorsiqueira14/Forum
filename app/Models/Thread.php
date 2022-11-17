@@ -14,5 +14,10 @@ class Thread extends Model
         'title',
         'body',
     ];
+
+    public function path()
+    {
+        return $this->id;
+    }
 }
 
