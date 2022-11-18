@@ -22,12 +22,10 @@ class ReadThreadsTest extends TestCase
         parent::setUp();
         $this->user = User::factory()->create();
         $this->thread = Thread::factory()->create();
-
     }
 
     public function test_a_user_can_browse_threads()
     {
-
         $this
         ->get('threads')
         ->assertSee($this->thread->title);
@@ -42,12 +40,9 @@ class ReadThreadsTest extends TestCase
 
     public function test_a_user_can_replies_that_are_associated_with_a_thread()
     {
-        // given we have a thread that
-        // and that thread includes replies
         $reply = Reply::factory()
             ->create(['thread_id' => $this->thread->id]);
-        //when we visit a thread page
-        //then we should see that replies
+
         $this->get('/threads/'. $this->thread->id)
             ->assertSee($reply->body);
     }
