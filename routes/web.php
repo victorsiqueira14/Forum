@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\ThreadsController;
 
 /*
@@ -27,3 +28,9 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/threads', [ThreadsController::class, 'index']);
 Route::get('/threads/{thread}', [ThreadsController::class, 'show']);
+Route::post('/threads/{thread}/replies', [RepliesController::class, 'store']);
+
+
+
+
+
