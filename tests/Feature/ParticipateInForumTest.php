@@ -36,11 +36,12 @@ class ParticipateInForumTest extends TestCase
 
     public function test_an_authenticated_user_may_participate_in_forum_threads()
     {
-
-
         $this->post('/threads/'.$this->thread->id.'/replies', $this->reply->toArray());
         $this->get('/threads/'. $this->thread->id)
             ->assertSee($this->reply->body);
 
     }
 }
+
+
+
