@@ -1,10 +1,10 @@
-<div class="panel-heading">
+<div class="card-header">
     <a href="#">
         {{ $reply->owner->name }}
     </a> said {{ $reply->created_at->diffForHumans() }}...
 </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
+<div>
+    <div class="mb-2 card-body">
             {{ $reply->body }}
         </div>
     </div>
