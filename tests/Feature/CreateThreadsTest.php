@@ -26,7 +26,6 @@ class CreateThreadsTest extends TestCase
         $this->withoutExceptionHandling();
 
         $this->signIn();
-
         $thread = Thread::factory()->create();
 
         $this->post('/threads', $thread->toArray());
@@ -36,6 +35,12 @@ class CreateThreadsTest extends TestCase
             ->assertSee($thread->body);
     }
 
+    public function test_guests_cannot_see_the_create_thread_page()
+    {
+        $this->withExceptionHandling()
+            ->get('/threads/create')
+            ->assertRedirect('/login');
+    }
 
 }
 
