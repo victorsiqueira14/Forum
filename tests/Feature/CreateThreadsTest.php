@@ -11,6 +11,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CreateThreadsTest extends TestCase
 {
+    private $user;
     use DatabaseMigrations;
 
     // public function test_guests_may_not_create_a_threads()
@@ -24,25 +25,17 @@ class CreateThreadsTest extends TestCase
 
         $this->withoutExceptionHandling();
 
-        // Given we have a user
-        $user = User::factory()->create();
+        $this->signIn();
 
-        // And that user is authenticated
-        $this->actingAs($user);
+        $thread = Thread::factory()->create();
 
-        // And we have a thread created by that user
-        $thread = Thread::factory()->create([
-            'user_id' => $user->id
-        ]);
-
-        // And once we hit the endpoint to create a new thread
         $this->post('/threads', $thread->toArray());
 
-        // And when we visit the thread page
         $this->get('/threads')
-         // Then we should see the new thread's title and body
             ->assertSee($thread->title)
             ->assertSee($thread->body);
     }
+
+
 }
 
