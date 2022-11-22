@@ -35,7 +35,7 @@
     @if (auth()->check())
     <div class="row justify-content-center">
         <div class="col-md-8 col-md-offset-2">
-            <form method="POST" action="{{ $thread->path().'/replies' }}">
+            <form method="POST" action="{{ '/threads/'.$thread->path().'/replies' }}">
                 {{ csrf_field() }}
 
                 <div class="form-group">
