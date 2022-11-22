@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Models\Channel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -12,13 +13,14 @@ class Thread extends Model
 
     protected $fillable = [
         'user_id',
+        'channel_id',
         'title',
         'body',
     ];
 
     public function path()
     {
-        return $this->id;
+        return "{$this->channel->slug}/{$this->id}";
     }
 
     public function replies()
@@ -35,5 +37,10 @@ class Thread extends Model
     {
         $this->replies()->create($reply);
     }
-}
 
+    public function channel()
+    {
+        return $this->belongsTo(Channel::class);
+    }
+
+}

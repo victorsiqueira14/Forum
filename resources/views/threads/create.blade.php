@@ -17,7 +17,7 @@
                             </div>
                                 <div class="form-group">
                                     <label for="body">Body: </label>
-                                    <textarea name="body" id="body" class="form-control" rows="8" name="body" ></textarea>
+                                    <textarea name="body" id="body" class="form-control" rows="8" name="" ></textarea>
                             </div>
 
                             <button type="submit" class="btn btn-primary mt-2"> Publish </button>

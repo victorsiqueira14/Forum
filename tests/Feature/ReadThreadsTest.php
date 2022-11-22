@@ -7,6 +7,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Reply;
 use App\Models\Thread;
+use App\Models\Channel;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ReadThreadsTest extends TestCase
@@ -22,6 +23,7 @@ class ReadThreadsTest extends TestCase
         parent::setUp();
         $this->user = User::factory()->create();
         $this->thread = Thread::factory()->create();
+        $this->reply = Reply::factory()->create();
     }
 
     public function test_a_user_can_browse_threads()
@@ -33,24 +35,26 @@ class ReadThreadsTest extends TestCase
 
     public function test_a_user_can_read_a_single_thread()
     {
-            $this->get('/threads/'. $this->thread->id)
+
+            $thread = Thread::factory()->create();
+            $channel = Channel::factory()->create();
+
+            $this->get('/threads/'.$this->thread->path())
             ->assertSee($this->thread->title);
 
     }
 
+
     public function test_a_user_can_replies_that_are_associated_with_a_thread()
     {
-        $reply = Reply::factory()
-            ->create(['thread_id' => $this->thread->id]);
+        $channel = Channel::factory()->create();
 
-        $this->get('/threads/'. $this->thread->id)
-            ->assertSee($reply->body);
+        $this->get('/threads/'.$this->thread->path())
+            ->assertSee($this->reply->body);
     }
 
 
 
+
 }
-
-
-
 

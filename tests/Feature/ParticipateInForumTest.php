@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Reply;
 use App\Models\Thread;
+use App\Models\Channel;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -16,7 +17,7 @@ class ParticipateInForumTest extends TestCase
 
     use DatabaseMigrations;
 
-    protected $thread;
+
 
     public function setUp(): void
     {
@@ -24,22 +25,28 @@ class ParticipateInForumTest extends TestCase
         $this->be($user = User::factory()->create());
         $this->thread = Thread::factory()->create();
         $this->reply = Reply::factory()->create();
+        $this->channel = Channel::factory()->create();
     }
 
     // public function test_unauthenticaded_users_may_not_add_replies()
     // {
-    //     $this->expectException(AuthenticationException::class);
-    //     $this->withoutExceptionHandling();
-    //     $this->post('/threads/'.$this->thread->id.'/replies', $this->reply->toArray());
+    //     $this->withoutExceptionHandling()
+    //         ->post(Thread::factory()->create())
+    //         ->assertRedirect('/login');
 
     // }
 
     public function test_an_authenticated_user_may_participate_in_forum_threads()
     {
-        $this->post('/threads/'.$this->thread->id.'/replies', $this->reply->toArray());
-        $this->get('/threads/'. $this->thread->id)
-            ->assertSee($this->reply->body);
+        $this->signIn();
 
+        $thread = Thread::factory()->create();
+        $reply = Reply::factory()->make();
+
+        $this->post('/threads/'.$this->thread->path().'/replies', $reply->toArray());
+
+        $this->get('/threads/'.$this->thread->path())
+            ->assertSee($reply->body);
     }
 }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Thread;
+use App\Models\Channel;
 use Illuminate\Http\Request;
 
 class RepliesController extends Controller
@@ -12,14 +13,22 @@ class RepliesController extends Controller
     {
         $this->middleware('auth');
     }
-
-    public function store(Thread $thread)
+/**
+ * Undocumented function
+ *
+ * @param Channel $channelIds
+ * @param Thread $thread
+ * @return void
+ */
+    public function store($channelIds, Thread $thread)
     {
         $thread->addReply([
             'body' => request('body'),
             'user_id' => auth()->id(),
         ]);
-
         return back();
     }
+
+
+
 }

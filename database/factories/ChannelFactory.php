@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Thread;
 use App\Models\Channel;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
-class ThreadFactory extends Factory
+class ChannelFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,15 +20,11 @@ class ThreadFactory extends Factory
      */
     public function definition()
     {
-        $userIds = User::all()->pluck('id');
-        $channelIds = Channel::all()->pluck('id');
-        $slug = Channel::all()->pluck('slug');
+            $name = fake()->word;
 
-        return [
-           'user_id' => fake()->randomElement($userIds),
-           'channel_id' => fake()->randomElement($userIds),
-           'title' => fake()->sentence,
-           'body' => fake()->paragraph,
+            return [
+                'name' => $name,
+                'slug' => Str::slug($name),
         ];
     }
 }
