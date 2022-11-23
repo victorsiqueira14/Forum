@@ -30,8 +30,8 @@ class ParticipateInForumTest extends TestCase
 
     // public function test_unauthenticaded_users_may_not_add_replies()
     // {
-    //     $this->withoutExceptionHandling()
-    //         ->post(Thread::factory()->create())
+    //     $this->withExceptionHandling()
+    //         ->post('/threads/some-channel/1/replies', [])
     //         ->assertRedirect('/login');
 
     // }
@@ -48,6 +48,20 @@ class ParticipateInForumTest extends TestCase
         $this->get('/threads/'.$this->thread->path())
             ->assertSee($reply->body);
     }
+
+    public function test_a_reply_requires_a_body()
+    {
+        $this->withExceptionHandling()->signIn();
+
+        $thread = Thread::factory()->create();
+        $reply = Reply::factory()->make(['body' => null]);
+
+
+        $this->post('/threads/'.$this->thread->path().'/replies', $reply->toArray())
+            ->assertSessionHasErrors('body');
+    }
+
+
 }
 
 
