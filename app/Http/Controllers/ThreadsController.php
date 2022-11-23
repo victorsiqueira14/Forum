@@ -36,21 +36,21 @@ class ThreadsController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * * @param Channel $channelId
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Channel $channelId, Request $request)
+    public function store(Request $request)
     {
 
         $thread = Thread::create([
             'user_id' => auth()->id(),
-            'channel_id' => request('channel_id'),
-            'title' => request('title'),
-            'body' => request('body')
+            'channel_id' => $request->channel_id,
+            'title' => $request->title,
+            'body' => $request->body
         ]);
 
         return redirect($thread->path());
+        // return redirect('/threads/'.$thread->path());
 
     }
 
