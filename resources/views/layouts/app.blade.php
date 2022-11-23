@@ -35,6 +35,10 @@
                     <ul class="navbar-nav">
                         <li ><a class="nav-link " href="/threads"> All Threads</a></li>
 
+                        <li>
+                            <a class="nav-link" href="/threads/create">New Thread</a>
+                        </li>
+
                         <li class="nav-nav dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false"> Channels </a>

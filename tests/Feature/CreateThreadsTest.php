@@ -29,8 +29,7 @@ class CreateThreadsTest extends TestCase
     public function test_an_authenticated_user_can_create_new_forum_threads()
 
     {
-        // $this->withoutExceptionHandling();
-
+   
         $this->signIn();
 
         $channel = Channel::factory()->create();
