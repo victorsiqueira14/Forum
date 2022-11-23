@@ -8,11 +8,14 @@ use App\Models\User;
 use App\Models\Reply;
 use App\Models\Thread;
 use App\Models\Channel;
+
+
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ReadThreadsTest extends TestCase
 {
     use DatabaseMigrations;
+
 
     public function setUp(): void
     {
@@ -64,6 +67,20 @@ class ReadThreadsTest extends TestCase
         $this->get('/threads/'.$channel->slug)
             ->assertSee($threadInChannel->title)
             ->assertDontSee($threadNotInChannel->title);
+
+    }
+
+    public function test_a_user_can_filter_threads_by_any_username()
+    {
+        $this->withExceptionHandling();
+        $this->signIn(User::factory()->create(['name' => 'JohnDoe']));
+
+        $threadByJohnDoe = Thread::factory()->create(['user_id' => auth()->id()]);
+        $threadNotByJohnDoe = Thread::factory()->make();
+
+        $this->get('threads?by=JohnDoe')
+            ->assertSee($threadByJohnDoe->title)
+            ->assertDontSee($threadNotByJohnDoe->title);
 
     }
 
