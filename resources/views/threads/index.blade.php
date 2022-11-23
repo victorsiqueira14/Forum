@@ -5,8 +5,8 @@
         <div class="row  justify-content-center">
             <div class="col-md-8">
                 <div class="">
-                    <div class="">
-                        <div class="card card-header "> Forum Threads</div>
+                    <div class="card">
+                        <div class="card-header "> Forum Threads</div>
                     </div>
 
                     @foreach ($threads as $thread)

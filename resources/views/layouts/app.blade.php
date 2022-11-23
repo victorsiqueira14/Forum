@@ -32,9 +32,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav">
-                        <li ><a class="nav-link " href="/threads"> All Threads</a></li>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false"> Browse </a>
 
+                    <ul class="dropdown-menu ">
+                        <li class="nav-nav dropdown" ><a class="nav-link" href="/threads"> All Threads</a></li>
+
+                        @if (auth()->check())
+                            <li class="nav-nav dropdownk"> <a class="nav-link" href="/threads?by={{ auth()->user()->name }}"> My Threads </a></li>
+                        @endif
+                        
+                    </ul>
                         <li>
                             <a class="nav-link" href="/threads/create">New Thread</a>
                         </li>
