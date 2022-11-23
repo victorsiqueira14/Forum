@@ -44,7 +44,7 @@
                                 aria-expanded="false"> Channels </a>
 
                             <ul class="dropdown-menu">
-                                @foreach (App\Models\Channel::all() as $channel)
+                                @foreach ($channels as $channel)
                                     <li> <a class="nav-link" href="/threads/{{ $channel->slug }}">{{ $channel->name }}</a></li>
                                 @endforeach
                             </ul>
