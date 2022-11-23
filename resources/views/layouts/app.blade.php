@@ -30,9 +30,21 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                        <li><a href="/threads"> All Threads</a></li>
+                    <ul class="navbar-nav">
+                        <li ><a class="nav-link " href="/threads"> All Threads</a></li>
+
+                        <li class="nav-nav dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false"> Channels </a>
+
+                            <ul class="dropdown-menu">
+                                @foreach (App\Models\Channel::all() as $channel)
+                                    <li> <a class="nav-link" href="/threads/{{ $channel->slug }}">{{ $channel->name }}</a></li>
+                                @endforeach
+                            </ul>
+                          </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -2,21 +2,21 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading"> Forum Threads</div>
-                    <div class="panel-body">
+    <div class="row mb-4 justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header"> Forum Threads</div>
+                    <div class="card-body">
                         @foreach ($threads as $thread)
                             <article>
                                 <h4>
-                                    <a href="/threads/{{ $thread->path() }}">
+                                    <a class="" href="/threads/{{ $thread->path() }}">
                                     {{ $thread->title  }}
                                     </a>
                                 </h4>
-                                <div class="body"> {{ $thread->body }}  </div>
+                                <div class=""> {{ $thread->body }}  </div>
                             </article>
-                        <hr>
+
                         @endforeach
 
                 </div>
