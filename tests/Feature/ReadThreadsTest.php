@@ -84,6 +84,34 @@ class ReadThreadsTest extends TestCase
 
     }
 
+    public function test_a_user_can_filter_threads_by_popularity()
+    {
+
+        // Given we have three threads, With 2 replies, 3 replies, and 0 replies, respectively
+        $threadWithTwoReplies = Thread::factory()
+            ->hasReplies(2)
+            ->create();
+
+        $threadWithThreeReplies = Thread::factory()
+            ->hasReplies(3)
+            ->create();
+
+        $threadWithZeroReplies = Thread::factory()->create();
+     
+        // whem i filter all threads by popularity
+        $this->get('threads?popular=1')
+            ->assertSeeInOrder([
+                $threadWithTwoReplies->title,
+                $threadWithThreeReplies->title,
+                $threadWithZeroReplies->title
+        ]);
+
+        // // then they should be returned from most replies to least
+        // $this->assertEquals([3, 2, 0], array_column($reponse, 'replies_count'));
+
+    }
+
+
 
 
 

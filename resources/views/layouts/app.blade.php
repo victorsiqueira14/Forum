@@ -15,6 +15,12 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Styles -->
+    <style>
+        .level { display: flex; align-items: center; }
+        .flex { flex: 1 }
+    </style>
 </head>
 <body style="padding-bottom: 100px;">
 
@@ -41,9 +47,11 @@
                         <li class="nav-nav dropdown" ><a class="nav-link" href="/threads"> All Threads</a></li>
 
                         @if (auth()->check())
-                            <li class="nav-nav dropdownk"> <a class="nav-link" href="/threads?by={{ auth()->user()->name }}"> My Threads </a></li>
+                            <li class="nav-nav dropdown"> <a class="nav-link" href="/threads?by={{ auth()->user()->name }}"> My Threads </a></li>
                         @endif
-                        
+
+                        <li class="nav-nav dropdown"><a class="nav-link" href="/threads?popular=1">Popular Threads</a></li>
+
                     </ul>
                         <li>
                             <a class="nav-link" href="/threads/create">New Thread</a>
