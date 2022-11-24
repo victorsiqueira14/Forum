@@ -18,7 +18,6 @@ class ThreadFilters extends Filters
      * @param string $username
      * @return mixed
      */
-
     protected function by($username)
     {
         $user = User::where('name', $username)->firstOrFail();
@@ -33,7 +32,7 @@ class ThreadFilters extends Filters
     protected function popular()
     {
         $this->builder->getQuery()->orders = [];
-        
+
         return $this->builder->orderBy('replies_count', 'desc');
     }
 

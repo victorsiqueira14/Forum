@@ -16,38 +16,47 @@ class ReadThreadsTest extends TestCase
 {
     use DatabaseMigrations;
 
-
+    /**
+     * A setup Function for test
+     *
+     * @return void
+     */
     public function setUp(): void
     {
-
         parent::setUp();
         $this->user = User::factory()->create();
         $this->thread = Thread::factory()->create();
         $this->reply = Reply::factory()->create();
-
     }
 
+    /**
+     *
+     * @return void
+     */
     public function test_a_user_can_browse_threads()
     {
-
         $this
         ->get('threads')
         ->assertSee($this->thread->title);
-
     }
 
+    /**
+     *
+     * @return void
+     */
     public function test_a_user_can_read_a_single_thread()
     {
-
             $thread = Thread::factory()->create();
             $channel = Channel::factory()->create();
 
             $this->get('/threads/'.$this->thread->path())
             ->assertSee($this->thread->title);
-
     }
 
-
+    /**
+     *
+     * @return void
+     */
     public function test_a_user_can_replies_that_are_associated_with_a_thread()
     {
 
@@ -58,6 +67,10 @@ class ReadThreadsTest extends TestCase
 
     }
 
+    /**
+     *
+     * @return void
+     */
     public function test_a_user_can_filter_threads_according_to_a_channel()
     {
         $channel = Channel::factory()->create();
@@ -70,6 +83,10 @@ class ReadThreadsTest extends TestCase
 
     }
 
+    /**
+     *
+     * @return void
+     */
     public function test_a_user_can_filter_threads_by_any_username()
     {
         $this->withExceptionHandling();
@@ -84,10 +101,16 @@ class ReadThreadsTest extends TestCase
 
     }
 
+
+    /**
+     * Given we have three threads, With 2 replies, 3 replies, and 0 replies, respectively
+     * Given wewhem i filter all threads by popularity have three threads, With 2 replies, 3 replies, and 0 replies, respectively
+     * then they should be returned from most replies to least
+     *
+     * @return void
+     */
     public function test_a_user_can_filter_threads_by_popularity()
     {
-
-        // Given we have three threads, With 2 replies, 3 replies, and 0 replies, respectively
         $threadWithTwoReplies = Thread::factory()
             ->hasReplies(2)
             ->create();
@@ -97,23 +120,13 @@ class ReadThreadsTest extends TestCase
             ->create();
 
         $threadWithZeroReplies = Thread::factory()->create();
-     
-        // whem i filter all threads by popularity
+
         $this->get('threads?popular=1')
             ->assertSeeInOrder([
                 $threadWithTwoReplies->title,
                 $threadWithThreeReplies->title,
                 $threadWithZeroReplies->title
         ]);
-
-        // // then they should be returned from most replies to least
-        // $this->assertEquals([3, 2, 0], array_column($reponse, 'replies_count'));
-
     }
-
-
-
-
-
 }
 

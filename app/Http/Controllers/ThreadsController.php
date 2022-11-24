@@ -117,7 +117,7 @@ class ThreadsController extends Controller
      /**
      * Fetch all relevant threads.
      *
-     * @param Channel       $channel
+     * @param Channel $channel
      * @param ThreadFilters $filters
      * @return mixed
      */
@@ -128,8 +128,6 @@ class ThreadsController extends Controller
         if ($channel->exists) {
             $threads->where('channel_id', $channel->id);
         }
-
-
 
         return $threads->get();
     }
