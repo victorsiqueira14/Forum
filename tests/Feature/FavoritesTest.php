@@ -36,6 +36,10 @@ class FavoritesTest extends TestCase
         $this->assertCount(1, $reply->favorites);
     }
 
+    /**
+     *
+     * @return void
+     */
     public function test_an_authenticated_user_may_only_favorite_a_reply_once()
     {
         $this->signIn();
@@ -48,7 +52,6 @@ class FavoritesTest extends TestCase
         } catch (\Exception $e) {
             $this->fail('Did not expect to insert the same record set twice.');
         }
-
 
         $this->assertCount(1, $reply->favorites);
     }
