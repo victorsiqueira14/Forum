@@ -18,7 +18,6 @@ class Thread extends Model
         'body',
     ];
 
-
     public function path()
     {
         return "{$this->channel->slug}/{$this->id}";
@@ -42,6 +41,11 @@ class Thread extends Model
     public function channel()
     {
         return $this->belongsTo(Channel::class, 'channel_id');
+    }
+
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
     }
 
 }

@@ -22,7 +22,6 @@ class RepliesController extends Controller
  */
     public function store($channelIds, Thread $thread)
     {
-
         $this->validate(request(), [
             'body' =>'required'
 
@@ -34,7 +33,5 @@ class RepliesController extends Controller
         ]);
         return back();
     }
-
-
-
+    
 }
