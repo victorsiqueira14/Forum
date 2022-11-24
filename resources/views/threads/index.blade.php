@@ -13,14 +13,22 @@
                         <div class="mt-2">
                             <article class="card">
                                 <div class="card-header">
-                                    <h4 class="">
+
+                                    <div class="level">
+                                    <h4 class="flex">
                                         <a class="" href="/threads/{{ $thread->path() }}">
                                             {{ $thread->title }}
                                         </a>
                                     </h4>
+
+                                    <a href="/threads/{{ $thread->path() }}">
+                                        {{ $thread->replies_count }} {{ Str::plural('reply', $thread->replies_count) }}</a>
+                                    </div>
+
+
                                 </div>
                                 <div class="">
-                                    <div class="card-body"> {{ $thread->body }} </div>
+                                    <div class="card-body"> {{ $thread->body }}</div>
                                 </div>
 
                             </article>
