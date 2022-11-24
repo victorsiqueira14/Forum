@@ -4,6 +4,7 @@ namespace App\Models;
 
 
 use App\Models\Channel;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -17,6 +18,17 @@ class Thread extends Model
         'title',
         'body',
     ];
+    protected $guarded = [];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        Paginator::useBootstrap();
+        static::addGlobalScope('replyCount', function ($builder) {
+            $builder->withCount('replies');
+        });
+    }
 
     public function path()
     {
