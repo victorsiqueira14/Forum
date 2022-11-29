@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\ThreadsController;
 use App\Http\Controllers\FavoritesController;
+use App\Http\Controllers\ChannelController;
 
 /*
 |--------------------------------------------------------------------------
