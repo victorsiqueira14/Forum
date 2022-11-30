@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\ThreadsController;
+use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\FavoritesController;
-use App\Http\Controllers\ChannelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +37,5 @@ Route::get('threads/{channel}', [ThreadsController::class, 'index']);
 Route::post('/threads/{channel}/{thread}/replies', [RepliesController::class, 'store']);
 Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store']);
 
+Route::get('/profiles/{user}', [ProfilesController::class, 'show'])->name('profile');
 
