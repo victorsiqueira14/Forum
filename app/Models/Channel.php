@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Thread;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -13,6 +13,7 @@ class Channel extends Model
     protected $fillable = [
         'name',
         'slug',
+
     ];
 
     public function getRouteKeyName()
@@ -23,7 +24,7 @@ class Channel extends Model
 
     public function threads()
     {
-        return $this->hasMany(Thread::class, 'user_id');
+        return $this->hasMany(Thread::class);
     }
 
 }

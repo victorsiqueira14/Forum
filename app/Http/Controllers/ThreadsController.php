@@ -18,7 +18,9 @@ class ThreadsController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param Channel $channel
+     *
+     * @param  Channel      $channel
+     * @param ThreadFilters $filters
      * @return \Illuminate\Http\Response
      */
     public function index(Channel $channel, ThreadFilters $filters)
@@ -123,7 +125,7 @@ class ThreadsController extends Controller
      */
     protected function getThreads(Channel $channel, ThreadFilters $filters)
     {
-        $threads = Thread::with('channel')->latest()->filter($filters);
+        $threads = Thread::latest()->filter($filters);
 
         if ($channel->exists) {
             $threads->where('channel_id', $channel->id);
