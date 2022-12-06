@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="">
                     {{-- titulo ??  se for coloque aqui --}}
-                    @foreach ($threads as $thread)
+                    @forelse ($threads as $thread)
                         <div class="mt-2">
                             <article class="card">
                                 <div class="card-header">
@@ -23,7 +23,6 @@
                                             {{ Str::plural('reply', $thread->replies_count) }}</a>
                                     </div>
 
-
                                 </div>
                                 <div class="">
                                     <div class="card-body"> {{ $thread->body }}</div>
@@ -31,7 +30,9 @@
 
                             </article>
                         </div>
-                    @endforeach
+                        @empty
+                        <p>There are no relevant results at this time.</p>
+                    @endforelse
 
                 </div>
             </div>
