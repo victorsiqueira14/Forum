@@ -3,11 +3,24 @@
 @section('content')
     <div class="container">
         <div class="row mb-4">
-            <div class="col-md-8">
+            <div class="col-md-8 col-md-offset-2">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a> posted:
-                        {{ $thread->title }}
+                        <div class="level">
+                            <span class="flex">
+                                <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a> posted:
+                                {{ $thread->title }}
+                            </span>
+
+                            @if (Auth::check())
+                                <form action="{{ '/threads/'.$thread->path() }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+
+                                    <button class="btn btn-danger" type="submit">Delete Thread</button>
+                                </form>
+                            @endif
+                        </div>
                     </div>
 
                     <div class="card-body">
@@ -19,9 +32,9 @@
 
                 @foreach ($replies as $reply)
                     <div class="card mt-4">
-                    @include ('threads.reply')
+                        @include ('threads.reply')
                     </div>
-                 @endforeach
+                @endforeach
                 <div class="mt-2"> {{ $replies->links() }}</div>
 
 
@@ -30,8 +43,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group mt-4">
-                            <textarea name="body" id="body" class="form-control" placeholder="Have something to say?"
-                                      rows="5"></textarea>
+                            <textarea name="body" id="body" class="form-control" placeholder="Have something to say?" rows="5"></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary mt-2"> Post </button>
@@ -56,5 +68,3 @@
         </div>
     </div>
 @endsection
-
-

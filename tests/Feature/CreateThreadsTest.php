@@ -4,16 +4,26 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Reply;
 use App\Models\Thread;
 use App\Models\Channel;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CreateThreadsTest extends TestCase
 {
     private $user;
     use DatabaseMigrations;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->user = User::factory()->create();
+        $this->thread = Thread::factory()->create();
+        $this->reply = Reply::factory()->create();
+        $this->channel = Channel::factory()->create();
+    }
+
 
     public function test_guests_may_not_create_a_threads()
     {
@@ -29,7 +39,7 @@ class CreateThreadsTest extends TestCase
     public function test_an_authenticated_user_can_create_new_forum_threads()
 
     {
-   
+
         $this->signIn();
 
         $channel = Channel::factory()->create();
@@ -81,8 +91,36 @@ class CreateThreadsTest extends TestCase
 
     }
 
+    public function test_guests_cannot_delete_threads()
+    {
+        $this->withExceptionHandling();
 
+        $thread = Thread::factory()->create();
 
+        $response =  $this->delete('/threads/'.$this->thread->path(), $thread->toArray());
+
+        $response->assertRedirect('/login');
+    }
+
+    public function test_a_thread_can_be_deleted()
+    {
+        $this->signIn();
+
+        $thread = Thread::factory()->make(['user_id' => auth()->id()]);
+        $reply = Thread::factory()->make(['thread_id' => $thread->id]);
+
+        $response =  $this->delete('/threads/'.$this->thread->path(), $thread->toArray());
+
+        $response->assertStatus(204);
+
+        $this->assertDatabaseMissing('threads', $thread->only('id'));
+        $this->assertDatabaseMissing('replies', $reply->only('id'));
+    }
+
+    // public function test_threads_may_only_be_deleted_by_those_who_have_permission()
+    // {
+    //     //TODO
+    // }
 
 
 }
