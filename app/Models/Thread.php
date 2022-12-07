@@ -4,6 +4,8 @@ namespace App\Models;
 
 
 use App\Models\Channel;
+use App\Models\Activity;
+use App\Models\RecordsActivity;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Thread extends Model
 {
     use HasFactory;
+    use RecordsActivity;
 
     protected $fillable = [
         'user_id',
@@ -35,6 +38,7 @@ class Thread extends Model
         static::deleting(function ($thread){
             $thread->replies()->delete();
         });
+
     }
 
     public function path()

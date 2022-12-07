@@ -5,13 +5,14 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Thread;
 use App\Models\Favorable;
+use App\Models\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Reply extends Model
 {
     use HasFactory;
-    use Favorable;
+    use Favorable, RecordsActivity;
 
     protected $fillable = [
         'user_id',
