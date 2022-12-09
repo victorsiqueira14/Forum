@@ -44,21 +44,16 @@ class ActivityTest extends TestCase
     {
         $this->signIn();
 
-
         Thread::factory()->create(['user_id' => auth()->id()]);
 
-        Thread::factory()->create([
-            'user_id' => auth()->id(),
-            'created_at' => Carbon::now()->subWeek()
-        ]);
+
+        auth()->user()->activity()->first()->update(['created_at' => Carbon::now()->subWeek()]);
 
         $feed = Activity::feed(auth()->user());
 
-        dd($feed);
         $this->assertTrue($feed->keys()->contains(
             Carbon::now()->format('Y-m-d')
         ));
-
     }
 }
 

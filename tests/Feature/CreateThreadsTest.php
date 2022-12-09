@@ -116,10 +116,10 @@ class CreateThreadsTest extends TestCase
         $this->assertDatabaseMissing('replies', $reply->only('id'));
     }
 
-    public function test_threads_may_only_be_deleted_by_those_who_have_permission()
-    {
-        //TODO
-    }
+    // public function test_threads_may_only_be_deleted_by_those_who_have_permission()
+    // {
+    //     //TODO
+    // }
 
 }
 
