@@ -20,6 +20,10 @@ trait RecordsActivity
                 $model->recordActivity($event);
             });
         }
+
+        static::deleting(function ($model) {
+            $model->activity()->delete();
+        });
     }
 
     /**
@@ -39,13 +43,11 @@ trait RecordsActivity
      */
     protected function recordActivity($event)
     {
-
         $this->activity()->create([
             'user_id' => auth()->id(),
             'type' => $this->getActivityType($event),
 
         ]);
-
     }
     /**
      * Fetch the activity relationship.
@@ -68,7 +70,6 @@ trait RecordsActivity
         $type = strtolower((new ReflectionClass($this))->getShortName());
 
         return "{$event}_{$type}";
-
     }
 
 }

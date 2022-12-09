@@ -109,16 +109,13 @@ class ThreadsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Thread  $thread
-     * @return \Illuminate\Http\Response
+     * @param \App\Thread $thread
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
      */
     public function destroy($channel, Thread $thread)
     {
         $this->authorize('update', $thread);
-        
-        if ($thread->user_id != auth()->id()) {
-            abort(403, 'You do not have permission to do this.');
-        }
 
         $thread->delete();
 

@@ -21,9 +21,7 @@ class Thread extends Model
         'channel_id',
         'title',
         'body',
-
     ];
-
 
     protected $with = ['creator', 'channel'];
 
@@ -32,13 +30,14 @@ class Thread extends Model
         parent::boot();
 
         Paginator::useBootstrap();
+
         static::addGlobalScope('replyCount', function ($builder) {
             $builder->withCount('replies');
         });
-        static::deleting(function ($thread){
-            $thread->replies()->delete();
-        });
 
+        static::deleting(function ($thread){
+            $thread->replies->each->delete();
+        });
     }
 
     public function path()
