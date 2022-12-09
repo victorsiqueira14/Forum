@@ -46,6 +46,11 @@ class Thread extends Model
         return "{$this->channel->slug}/{$this->id}";
     }
 
+    public function pathView()
+    {
+        return "/threads/{$this->channel->slug}/{$this->id}";
+    }
+
     public function replies()
     {
         return $this->hasMany(Reply::class);
