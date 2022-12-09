@@ -18,8 +18,9 @@ class Reply extends Model
         'user_id',
         'thread_id',
         'body',
-
     ];
+
+    protected $guarded = [];
 
     protected $with = ['owner', 'favorites'];
 
